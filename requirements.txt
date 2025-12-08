@@ -1,0 +1,6 @@
+tkinter
+matplotlib
+flask
+Flask==2.3.0
+Werkzeug==2.3.0
+python-dotenv==1.0.0

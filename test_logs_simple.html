@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Backend Logs</title>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            background: #1a1a1a;
+            color: #00ff00;
+            padding: 20px;
+        }
+        .log-container {
+            background: #000;
+            border: 2px solid #00ff00;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+        .log-item {
+            padding: 5px;
+            margin: 2px 0;
+            border-left: 3px solid #00ff00;
+            background: rgba(0, 255, 0, 0.1);
+        }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .btn-brake { background: #dc2626; color: white; }
+        .btn-collision { background: #f59e0b; color: white; }
+        .btn-speed { background: #3b82f6; color: white; }
+        .btn-clear { background: #6b7280; color: white; }
+        .btn-fetch { background: #10b981; color: white; }
+    </style>
+</head>
+<body>
+    <h1>🔍 Backend Log Test</h1>
+    
+    <div>
+        <button class="btn-brake" onclick="triggerSensor('Brake')">🛑 Brake</button>
+        <button class="btn-collision" onclick="triggerSensor('Collision')">⚠️ Collision</button>
+        <button class="btn-speed" onclick="triggerSensor('Speed')">⚡ Speed</button>
+        <button class="btn-clear" onclick="clearLogs()">Clear</button>
+        <button class="btn-fetch" onclick="fetchLogs()">Fetch Logs</button>
+    </div>
+
+    <div class="log-container" id="logs">
+        <div class="log-item">Ready to test backend logs...</div>
+    </div>
+
+    <script>
+        async function triggerSensor(sensorName) {
+            try {
+                console.log(`Triggering ${sensorName}...`);
+                
+                const response = await fetch(`http://localhost:5000/api/trigger-sensor/${sensorName}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+                
+                const result = await response.json();
+                console.log(`${sensorName} result:`, result);
+                
+                // Wait a moment then fetch logs
+                setTimeout(() => fetchLogs(), 300);
+                
+            } catch (error) {
+                console.error('Error:', error);
+                addLog(`Error: ${error.message}`);
+            }
+        }
+
+        async function fetchLogs() {
+            try {
+                console.log('Fetching logs from backend...');
+                
+                const response = await fetch('http://localhost:5000/api/event-log');
+                const data = await response.json();
+                
+                console.log('Backend logs:', data);
+                
+                const logContainer = document.getElementById('logs');
+                logContainer.innerHTML = '';
+                
+                if (data.events && data.events.length > 0) {
+                    addLog(`Found ${data.events.length} events from backend:`);
+                    
+                    // Show last 10 events
+                    data.events.slice(-10).reverse().forEach(event => {
+                        addLog(event);
+                    });
+                } else {
+                    addLog('No events found in backend logs');
+                }
+                
+            } catch (error) {
+                console.error('Error fetching logs:', error);
+                addLog(`Error fetching logs: ${error.message}`);
+            }
+        }
+
+        async function clearLogs() {
+            try {
+                await fetch('http://localhost:5000/api/clear-log', { method: 'POST' });
+                document.getElementById('logs').innerHTML = '';
+                addLog('Logs cleared');
+            } catch (error) {
+                addLog(`Error clearing logs: ${error.message}`);
+            }
+        }
+
+        function addLog(message) {
+            const logContainer = document.getElementById('logs');
+            const entry = document.createElement('div');
+            entry.className = 'log-item';
+            entry.textContent = `${new Date().toLocaleTimeString()} - ${message}`;
+            logContainer.appendChild(entry);
+        }
+
+        // Initial fetch
+        setTimeout(() => fetchLogs(), 1000);
+    </script>
+</body>
+</html>

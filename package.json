@@ -1,0 +1,13 @@
+{
+  "name": "rtos-simulator",
+  "version": "2.0.0",
+  "description": "Real-Time Operating System Simulator",
+  "main": "run.py",
+  "scripts": {
+    "start": "python run.py",
+    "test": "pytest"
+  },
+  "dependencies": {
+    "chart.js": "^3.9.1"
+  }
+}
