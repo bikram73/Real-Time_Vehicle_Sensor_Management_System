@@ -279,9 +279,6 @@ After working with this system, you'll understand:
 - Hardware sensor integration
 - Load testing framework
 
-## 📄 License
-
-Educational project for real-time systems demonstration.
 
 ---
 
