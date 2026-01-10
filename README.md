@@ -3,7 +3,7 @@
 A comprehensive **RTOS simulator** demonstrating interrupt-driven architecture for vehicle sensor management with priority-based task scheduling, bounded latency, and safe shared resource management.
 
 ## 🚀 Quick Start
-
+ 
 ### 1. Install Dependencies
 ```bash
 pip install -r requirements.txt
