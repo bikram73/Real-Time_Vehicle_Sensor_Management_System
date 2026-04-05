@@ -441,6 +441,48 @@
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
+        .ppt-header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .ppt-back-link {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .ppt-back-link:hover {
+            background: rgba(255, 255, 255, 0.35);
+        }
+
+        .flow-step {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 40px;
+            align-items: flex-start;
+        }
+
+        .flow-step-badge {
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
         .ppt-header h1 {
             font-size: 2em;
             margin-bottom: 10px;
@@ -501,18 +543,152 @@
                 opacity: 0;
             }
         }
+
+        @media (max-width: 1024px) {
+            .slide {
+                padding: 44px 42px;
+            }
+
+            .ppt-header {
+                padding: 24px 30px;
+            }
+
+            .scroll-indicator {
+                right: 16px;
+                bottom: 16px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .ppt-header-row {
+                flex-direction: column;
+                align-items: stretch;
+                text-align: left;
+            }
+
+            .ppt-header h1 {
+                font-size: 1.35em;
+                margin-bottom: 8px;
+            }
+
+            .ppt-header p {
+                font-size: 0.92em;
+            }
+
+            .ppt-back-link {
+                width: 100%;
+                text-align: center;
+                padding: 10px 14px;
+            }
+
+            .slide {
+                padding: 32px 20px;
+                border-bottom-width: 1px;
+            }
+
+            .flow-step {
+                flex-direction: column;
+                gap: 14px;
+                margin-bottom: 24px;
+            }
+
+            .flow-step-badge {
+                width: 46px;
+                height: 46px;
+                font-size: 1.1em;
+            }
+
+            .title-main {
+                font-size: 1.8em;
+            }
+
+            .title-subtitle {
+                font-size: 1.06em;
+            }
+
+            .title-meta {
+                font-size: 0.95em;
+            }
+
+            .stats-table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+                font-size: 0.95em;
+            }
+
+            .code-block {
+                font-size: 0.8em;
+                padding: 14px;
+            }
+
+            .scroll-indicator {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                font-size: 14px;
+            }
+
+            .presentation-container {
+                border-radius: 0;
+            }
+
+            .slide {
+                padding: 24px 14px;
+            }
+
+            .slide-heading {
+                font-size: 1.4em;
+                margin-bottom: 20px;
+            }
+
+            .content-title {
+                font-size: 1.1em;
+            }
+
+            .content-text,
+            .bullet-list {
+                font-size: 0.95em;
+                line-height: 1.6;
+            }
+
+            .bullet-list {
+                margin-left: 6px;
+            }
+
+            .controls {
+                padding: 12px;
+                gap: 10px;
+            }
+
+            .btn {
+                width: 100%;
+                margin: 0;
+            }
+
+            .dot-indicators {
+                gap: 6px;
+            }
+
+            .dot {
+                width: 9px;
+                height: 9px;
+            }
+        }
     </style>
 </head>
 
 <body>
     <div class="ppt-header">
-        <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div class="ppt-header-row">
             <div>
                 <h1>Real-Time Vehicle Sensor Management System</h1>
                 <p>Interrupt-Driven RTOS Simulation with Priority-Based Task Scheduling</p>
             </div>
-            <a href="/"
-                style="background: rgba(255,255,255,0.2); color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; transition: all 0.3s ease;">
+            <a href="/" class="ppt-back-link">
                 ← Back to Dashboard
             </a>
         </div>
@@ -672,9 +848,9 @@
 
             <div style="margin: 40px 0;">
                 <!-- Step 1 -->
-                <div style="display: flex; gap: 30px; margin-bottom: 40px; align-items: flex-start;">
-                    <div
-                        style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5em; font-weight: bold; flex-shrink: 0;">
+                <div class="flow-step">
+                    <div class="flow-step-badge"
+                        style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
                         1</div>
                     <div>
                         <div style="font-size: 1.3em; font-weight: 600; color: #667eea; margin-bottom: 10px;">👤 USER
@@ -692,9 +868,9 @@
                 <div style="text-align: center; font-size: 2em; color: #667eea; margin: 20px 0;">⬇️</div>
 
                 <!-- Step 2 -->
-                <div style="display: flex; gap: 30px; margin-bottom: 40px; align-items: flex-start;">
-                    <div
-                        style="background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5em; font-weight: bold; flex-shrink: 0;">
+                <div class="flow-step">
+                    <div class="flow-step-badge"
+                        style="background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);">
                         2</div>
                     <div>
                         <div style="font-size: 1.3em; font-weight: 600; color: #f39c12; margin-bottom: 10px;">⚡
@@ -715,9 +891,9 @@
                 <div style="text-align: center; font-size: 2em; color: #667eea; margin: 20px 0;">⬇️</div>
 
                 <!-- Step 3 -->
-                <div style="display: flex; gap: 30px; margin-bottom: 40px; align-items: flex-start;">
-                    <div
-                        style="background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5em; font-weight: bold; flex-shrink: 0;">
+                <div class="flow-step">
+                    <div class="flow-step-badge"
+                        style="background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);">
                         3</div>
                     <div>
                         <div style="font-size: 1.3em; font-weight: 600; color: #e74c3c; margin-bottom: 10px;">🚀 ISR
@@ -737,9 +913,9 @@
                 <div style="text-align: center; font-size: 2em; color: #667eea; margin: 20px 0;">⬇️</div>
 
                 <!-- Step 4 -->
-                <div style="display: flex; gap: 30px; margin-bottom: 40px; align-items: flex-start;">
-                    <div
-                        style="background: linear-gradient(135deg, #27ae60 0%, #229954 100%); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5em; font-weight: bold; flex-shrink: 0;">
+                <div class="flow-step">
+                    <div class="flow-step-badge"
+                        style="background: linear-gradient(135deg, #27ae60 0%, #229954 100%);">
                         4</div>
                     <div>
                         <div style="font-size: 1.3em; font-weight: 600; color: #27ae60; margin-bottom: 10px;">🎯 RTOS
@@ -761,9 +937,9 @@
                 <div style="text-align: center; font-size: 2em; color: #667eea; margin: 20px 0;">⬇️</div>
 
                 <!-- Step 5 -->
-                <div style="display: flex; gap: 30px; margin-bottom: 40px; align-items: flex-start;">
-                    <div
-                        style="background: linear-gradient(135deg, #3498db 0%, #2980b9 100%); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5em; font-weight: bold; flex-shrink: 0;">
+                <div class="flow-step">
+                    <div class="flow-step-badge"
+                        style="background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);">
                         5</div>
                     <div>
                         <div style="font-size: 1.3em; font-weight: 600; color: #3498db; margin-bottom: 10px;">🔒 TASK
@@ -785,9 +961,9 @@
                 <div style="text-align: center; font-size: 2em; color: #667eea; margin: 20px 0;">⬇️</div>
 
                 <!-- Step 6 -->
-                <div style="display: flex; gap: 30px; align-items: flex-start;">
-                    <div
-                        style="background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5em; font-weight: bold; flex-shrink: 0;">
+                <div class="flow-step" style="margin-bottom: 0;">
+                    <div class="flow-step-badge"
+                        style="background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);">
                         6</div>
                     <div>
                         <div style="font-size: 1.3em; font-weight: 600; color: #9b59b6; margin-bottom: 10px;">📊 SYSTEM

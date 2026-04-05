@@ -53,6 +53,14 @@ header > div {
     gap: 20px;
 }
 
+.header-top-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    gap: 20px;
+}
+
 header > div > div {
     flex: 1;
     text-align: center;
@@ -596,8 +604,32 @@ header p {
 
 /* ============ RESPONSIVE DESIGN ============ */
 @media (max-width: 768px) {
+    body {
+        padding: 12px;
+    }
+
     .container {
         padding: 20px;
+    }
+
+    header {
+        margin-bottom: 30px;
+        padding-bottom: 20px;
+    }
+
+    .header-top-row {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 14px;
+    }
+
+    header > div > div {
+        text-align: left;
+    }
+
+    .btn-ppt {
+        width: 100%;
+        text-align: center;
     }
 
     header h1 {
@@ -654,12 +686,34 @@ header p {
 
     .car-svg {
         max-width: 500px;
+        min-height: 280px;
+    }
+
+    .logs-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .logs-header-buttons {
+        width: 100%;
+    }
+
+    .logs-download-btn,
+    .logs-clear-btn {
+        flex: 1;
+        justify-content: center;
     }
 }
 
 @media (max-width: 480px) {
+    body {
+        padding: 8px;
+    }
+
     .container {
-        padding: 15px;
+        padding: 14px;
+        border-radius: 10px;
     }
 
     header h1 {
@@ -677,8 +731,13 @@ header p {
 
     .control-panel,
     .car-visualization,
-    .log-section {
+    .log-section,
+    .stats-dashboard {
         padding: 15px;
+    }
+
+    .sensor-buttons {
+        gap: 10px;
     }
 
     .stat-value {
@@ -712,10 +771,37 @@ header p {
 
     .car-svg {
         max-width: 100%;
+        min-height: 200px;
     }
 
     .car-status-display {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: 1fr;
+        gap: 10px;
+        padding: 12px;
+    }
+
+    .status-indicator {
+        padding: 12px;
+    }
+
+    .status-value {
+        font-size: 1.1em;
+    }
+
+    .stat-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+    }
+
+    .stat-value {
+        text-align: left;
+        min-width: auto;
+    }
+
+    .log-item {
+        flex-wrap: wrap;
+        gap: 6px;
     }
 }
 
