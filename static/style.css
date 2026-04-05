@@ -907,10 +907,6 @@ header p {
     transform: scale(1.02);
 }
 
-.car-static {
-    /* Car remains in static position */
-}
-
 /* Trees animation - continuous left movement */
 .trees-animated {
     animation: treesMoveLeft 15s linear infinite;
