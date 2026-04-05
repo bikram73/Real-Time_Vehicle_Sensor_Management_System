@@ -6,184 +6,288 @@
     <title>Real-Time Vehicle Sensor Management System</title>
     <style>
         :root {
-            --bg-1: #0f172a;
-            --bg-2: #1e293b;
-            --panel: #ffffff;
-            --ink: #0b1324;
-            --muted: #475569;
-            --brand: #2563eb;
-            --brand-2: #0ea5e9;
-            --ok: #16a34a;
-            --warn: #d97706;
-            --danger: #dc2626;
-            --radius: 14px;
+            --primary-color: #6366f1;
+            --secondary-color: #8b5cf6;
+            --accent-color: #ec4899;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+            --dark-bg: #0f172a;
+            --light-bg: #f8fafc;
+            --border-radius: 12px;
         }
 
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
 
         body {
-            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-            background: radial-gradient(circle at 10% 10%, #0b1a3a 0%, var(--bg-1) 35%, var(--bg-2) 100%);
-            color: var(--ink);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
             min-height: 100vh;
-            padding: 24px;
+            color: #1e293b;
+            padding: 20px;
         }
 
-        .shell {
-            max-width: 1100px;
+        .container {
+            max-width: 1300px;
             margin: 0 auto;
-            background: var(--panel);
-            border-radius: 18px;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
             overflow: hidden;
-            box-shadow: 0 24px 60px rgba(2, 8, 23, 0.45);
         }
 
         .hero {
+            padding: 36px;
+            border-bottom: 2px solid #e2e8f0;
+            background: linear-gradient(135deg, #f0f4ff 0%, #faf5ff 100%);
             display: grid;
-            grid-template-columns: 1.15fr 1fr;
+            grid-template-columns: 1.2fr 0.8fr;
             gap: 24px;
-            padding: 34px;
-            background:
-                linear-gradient(130deg, rgba(37, 99, 235, 0.08), rgba(14, 165, 233, 0.03)),
-                linear-gradient(180deg, #ffffff, #f8fbff);
-            border-bottom: 1px solid #dbeafe;
+            align-items: center;
         }
 
-        h1 {
-            font-size: clamp(1.7rem, 4vw, 2.4rem);
-            line-height: 1.1;
-            margin-bottom: 12px;
-            color: #0f2a66;
-            letter-spacing: -0.3px;
-        }
-
-        .tagline {
-            color: #18438f;
-            font-weight: 600;
+        .hero h1 {
+            font-size: clamp(2rem, 4.6vw, 3rem);
+            line-height: 1.05;
             margin-bottom: 14px;
+            font-weight: 800;
+            letter-spacing: -1px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
-        .summary {
-            color: var(--muted);
-            line-height: 1.65;
-            font-size: 1rem;
+        .hero p {
+            color: #475569;
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin-bottom: 12px;
         }
 
-        .quick {
-            border: 1px solid #bfdbfe;
-            border-radius: var(--radius);
+        .highlight {
+            border: 2px solid #e0e7ff;
+            background: #ffffff;
+            border-radius: var(--border-radius);
             padding: 18px;
-            background: #f0f8ff;
         }
 
-        .quick h2 {
-            font-size: 1.1rem;
+        .highlight h2 {
+            color: #3730a3;
             margin-bottom: 10px;
-            color: #1d4ed8;
+            font-size: 1.2rem;
         }
 
-        .quick p {
-            font-size: 0.95rem;
-            color: #335280;
-            line-height: 1.6;
-            margin-bottom: 6px;
+        .highlight ul {
+            list-style: none;
+            display: grid;
+            gap: 8px;
+        }
+
+        .highlight li {
+            color: #334155;
+            line-height: 1.5;
+        }
+
+        .highlight strong {
+            color: #1e293b;
         }
 
         .actions {
             display: flex;
-            flex-wrap: wrap;
             gap: 12px;
-            margin-top: 14px;
+            flex-wrap: wrap;
+            margin-top: 8px;
         }
 
         .btn {
-            display: inline-block;
             text-decoration: none;
             border-radius: 10px;
-            padding: 11px 18px;
+            padding: 12px 20px;
             font-weight: 700;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-
-        .btn:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 10px 20px rgba(15, 23, 42, 0.14);
+            transition: all 0.25s ease;
+            display: inline-block;
         }
 
         .btn-primary {
-            color: #fff;
-            background: linear-gradient(135deg, var(--brand), var(--brand-2));
+            color: white;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.25);
         }
 
         .btn-secondary {
-            color: #0f2a66;
-            background: #e0edff;
-            border: 1px solid #b6d2ff;
+            color: #1e293b;
+            border: 1px solid #cbd5e1;
+            background: #f8fafc;
         }
 
-        .grid {
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .section {
+            padding: 28px 36px;
+        }
+
+        .section-title {
+            margin-bottom: 18px;
+            font-size: 1.6rem;
+            color: #0f172a;
+            font-weight: 800;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .section-title::before {
+            content: '';
+            width: 5px;
+            height: 26px;
+            border-radius: 3px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+        }
+
+        .cards {
             display: grid;
             grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 14px;
-            padding: 24px 34px 30px;
+            gap: 16px;
         }
 
         .card {
-            border: 1px solid #e2e8f0;
+            border: 2px solid #dbeafe;
             border-radius: 12px;
             padding: 16px;
-            background: #fff;
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
         }
 
         .card h3 {
-            font-size: 1rem;
+            color: #1e3a8a;
             margin-bottom: 8px;
-            color: #0f2a66;
+            font-size: 1.15rem;
         }
 
         .card p {
             color: #475569;
-            font-size: 0.93rem;
-            line-height: 1.55;
+            line-height: 1.6;
         }
 
         .pill {
+            margin-top: 10px;
             display: inline-block;
-            margin-top: 8px;
+            color: white;
+            border-radius: 999px;
             font-size: 0.8rem;
             font-weight: 700;
-            border-radius: 999px;
             padding: 4px 10px;
-            color: #fff;
         }
 
-        .p7 { background: var(--danger); }
-        .p6 { background: var(--warn); }
-        .p5 { background: var(--ok); }
+        .p7 { background: var(--danger-color); }
+        .p6 { background: var(--warning-color); }
+        .p5 { background: var(--success-color); }
 
-        @media (max-width: 900px) {
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .list-box {
+            border: 2px solid #c7d2fe;
+            border-radius: 12px;
+            padding: 16px;
+            background: #eef2ff;
+        }
+
+        .list-box h4 {
+            color: #312e81;
+            margin-bottom: 10px;
+            font-size: 1.05rem;
+        }
+
+        .list-box ul {
+            list-style: none;
+            display: grid;
+            gap: 8px;
+            color: #334155;
+        }
+
+        .list-box li::before {
+            content: '• ';
+            color: #6366f1;
+            font-weight: 900;
+        }
+
+        .api-table {
+            width: 100%;
+            border-collapse: collapse;
+            overflow: hidden;
+            border-radius: 10px;
+            border: 1px solid #dbeafe;
+        }
+
+        .api-table th,
+        .api-table td {
+            padding: 10px 12px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .api-table th {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            font-weight: 700;
+        }
+
+        .api-table td {
+            color: #334155;
+            font-size: 0.95rem;
+        }
+
+        .flow {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            color: #0f172a;
+            font-weight: 700;
+            line-height: 1.8;
+        }
+
+        .flow span {
+            background: #f1f5f9;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            padding: 8px 10px;
+        }
+
+        .footer-note {
+            margin-top: 14px;
+            color: #64748b;
+            font-size: 0.95rem;
+        }
+
+        @media (max-width: 980px) {
             .hero {
                 grid-template-columns: 1fr;
-                padding: 22px;
             }
 
-            .grid {
+            .cards,
+            .grid-2 {
                 grid-template-columns: 1fr;
-                padding: 20px 22px 24px;
             }
         }
 
-        @media (max-width: 480px) {
+        @media (max-width: 600px) {
             body {
                 padding: 10px;
             }
 
-            .shell {
-                border-radius: 12px;
+            .hero,
+            .section {
+                padding: 18px;
             }
 
             .actions {
@@ -191,56 +295,147 @@
             }
 
             .btn {
-                width: 100%;
                 text-align: center;
+                width: 100%;
+            }
+
+            .section-title {
+                font-size: 1.3rem;
+            }
+
+            .api-table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
             }
         }
     </style>
 </head>
 <body>
-    <main class="shell">
+    <main class="container">
         <section class="hero">
             <div>
                 <h1>Real-Time Vehicle Sensor Management System</h1>
-                <p class="tagline">Interrupt-driven RTOS simulation with deterministic priority scheduling.</p>
-                <p class="summary">
-                    This project demonstrates how brake, collision, and speed sensor interrupts are handled using an
-                    RTOS-style scheduler, event logging, and safe shared resource management. Use the dashboard to
-                    trigger sensors and inspect execution order in real time.
+                <p>
+                    Interrupt-driven RTOS simulation with deterministic task behavior, priority-based scheduling,
+                    and safe shared resource handling for vehicle sensor events.
+                </p>
+                <p>
+                    This project demonstrates how Brake, Collision, and Speed interrupts are mapped to ISR handlers,
+                    queued by priority, and executed through RTOS-style task scheduling while preserving predictable timing.
                 </p>
                 <div class="actions">
                     <a class="btn btn-primary" href="/dashboard">Open Live Dashboard</a>
                     <a class="btn btn-secondary" href="/ppt">Open PPT View</a>
                 </div>
             </div>
-
-            <aside class="quick">
+            <aside class="highlight">
                 <h2>Project Snapshot</h2>
-                <p><strong>Architecture:</strong> Flask API + RTOS simulator + interactive UI</p>
-                <p><strong>Core focus:</strong> Interrupt handling, preemption, bounded response</p>
-                <p><strong>Execution model:</strong> Priority-based scheduling (P7 > P6 > P5)</p>
-                <p><strong>Visibility:</strong> Event logs and live runtime statistics</p>
+                <ul>
+                    <li><strong>Architecture:</strong> Flask API + Interrupt Controller + RTOS Scheduler + Web UI</li>
+                    <li><strong>Priority Model:</strong> Brake (P7) > Collision (P6) > Speed (P5)</li>
+                    <li><strong>System Goals:</strong> Bounded latency, deterministic ordering, and no race conditions</li>
+                    <li><strong>Observability:</strong> Live event logs, interrupts per second, and response-time metrics</li>
+                </ul>
             </aside>
         </section>
 
-        <section class="grid">
-            <article class="card">
-                <h3>Brake Sensor Task</h3>
-                <p>Safety-critical interrupt path with highest execution priority and immediate handling.</p>
-                <span class="pill p7">Priority 7</span>
-            </article>
+        <section class="section">
+            <h2 class="section-title">Sensor Task Overview</h2>
+            <div class="cards">
+                <article class="card">
+                    <h3>Brake Sensor Task</h3>
+                    <p>Safety-critical path with the highest priority. It preempts lower tasks to ensure immediate reaction.</p>
+                    <span class="pill p7">Priority 7</span>
+                </article>
+                <article class="card">
+                    <h3>Collision Sensor Task</h3>
+                    <p>High-priority response task for collision detection events and intermediate safety handling.</p>
+                    <span class="pill p6">Priority 6</span>
+                </article>
+                <article class="card">
+                    <h3>Speed Sensor Task</h3>
+                    <p>Monitoring and telemetry task with medium priority for regular speed-event processing.</p>
+                    <span class="pill p5">Priority 5</span>
+                </article>
+            </div>
+        </section>
 
-            <article class="card">
-                <h3>Collision Task</h3>
-                <p>High-priority reaction pipeline for collision event processing and scheduling control.</p>
-                <span class="pill p6">Priority 6</span>
-            </article>
+        <section class="section">
+            <h2 class="section-title">Architecture And Real-Time Behavior</h2>
+            <div class="grid-2">
+                <div class="list-box">
+                    <h4>Core Components</h4>
+                    <ul>
+                        <li>Interrupt controller with virtual INT mapping</li>
+                        <li>ISR handlers for each sensor type</li>
+                        <li>Priority queue based RTOS scheduler</li>
+                        <li>Mutex-protected shared resource access</li>
+                        <li>Structured event logger with microsecond timestamps</li>
+                    </ul>
+                </div>
+                <div class="list-box">
+                    <h4>Real-Time Properties</h4>
+                    <ul>
+                        <li>Higher-priority preemption over running lower-priority tasks</li>
+                        <li>Deterministic event order for repeated input sequences</li>
+                        <li>Bounded interrupt and task response windows</li>
+                        <li>Safe concurrency through lock-based resource access</li>
+                        <li>Continuous stats collection for runtime verification</li>
+                    </ul>
+                </div>
+            </div>
+            <p class="footer-note">Execution flow:</p>
+            <div class="flow">
+                <span>Sensor Trigger</span>
+                <span>Interrupt Entry</span>
+                <span>ISR Processing</span>
+                <span>Task Signal</span>
+                <span>Priority Scheduling</span>
+                <span>Task Execution</span>
+                <span>Log + Stats Update</span>
+            </div>
+        </section>
 
-            <article class="card">
-                <h3>Speed Task</h3>
-                <p>Medium-priority monitoring flow for speed updates and regular runtime telemetry.</p>
-                <span class="pill p5">Priority 5</span>
-            </article>
+        <section class="section">
+            <h2 class="section-title">Available API Endpoints</h2>
+            <table class="api-table">
+                <thead>
+                    <tr>
+                        <th>Endpoint</th>
+                        <th>Method</th>
+                        <th>Purpose</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>/dashboard</td>
+                        <td>GET</td>
+                        <td>Interactive RTOS dashboard view</td>
+                    </tr>
+                    <tr>
+                        <td>/api/trigger-sensor/{name}</td>
+                        <td>POST</td>
+                        <td>Trigger Brake, Collision, or Speed interrupt</td>
+                    </tr>
+                    <tr>
+                        <td>/api/event-log</td>
+                        <td>GET</td>
+                        <td>Fetch event stream generated by ISR and tasks</td>
+                    </tr>
+                    <tr>
+                        <td>/api/system-stats</td>
+                        <td>GET</td>
+                        <td>Read task, interrupt, CPU and uptime statistics</td>
+                    </tr>
+                    <tr>
+                        <td>/ppt</td>
+                        <td>GET</td>
+                        <td>Open presentation page for demo and explanation</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p class="footer-note">Use the dashboard to run live simulations and inspect priority behavior in real time.</p>
         </section>
     </main>
 </body>
