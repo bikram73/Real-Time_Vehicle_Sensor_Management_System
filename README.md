@@ -1,9 +1,9 @@
-# 🚗 Real-Time Vehicle Sensor Management System
+# Real-Time Vehicle Sensor Management System
 
 A comprehensive **RTOS simulator** demonstrating interrupt-driven architecture for vehicle sensor management with priority-based task scheduling, bounded latency, and safe shared resource management.
 
 ## 🚀 Quick Start
- 
+
 ### 1. Install Dependencies
 ```bash
 pip install -r requirements.txt
@@ -277,7 +277,3 @@ After working with this system, you'll understand:
 - Timeline visualization
 - Hardware sensor integration
 - Load testing framework
-
-
----
-
