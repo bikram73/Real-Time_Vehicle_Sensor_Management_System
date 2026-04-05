@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time Vehicle Sensor Management System</title>
+    <style>
+        :root {
+            --bg-1: #0f172a;
+            --bg-2: #1e293b;
+            --panel: #ffffff;
+            --ink: #0b1324;
+            --muted: #475569;
+            --brand: #2563eb;
+            --brand-2: #0ea5e9;
+            --ok: #16a34a;
+            --warn: #d97706;
+            --danger: #dc2626;
+            --radius: 14px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background: radial-gradient(circle at 10% 10%, #0b1a3a 0%, var(--bg-1) 35%, var(--bg-2) 100%);
+            color: var(--ink);
+            min-height: 100vh;
+            padding: 24px;
+        }
+
+        .shell {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: var(--panel);
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 24px 60px rgba(2, 8, 23, 0.45);
+        }
+
+        .hero {
+            display: grid;
+            grid-template-columns: 1.15fr 1fr;
+            gap: 24px;
+            padding: 34px;
+            background:
+                linear-gradient(130deg, rgba(37, 99, 235, 0.08), rgba(14, 165, 233, 0.03)),
+                linear-gradient(180deg, #ffffff, #f8fbff);
+            border-bottom: 1px solid #dbeafe;
+        }
+
+        h1 {
+            font-size: clamp(1.7rem, 4vw, 2.4rem);
+            line-height: 1.1;
+            margin-bottom: 12px;
+            color: #0f2a66;
+            letter-spacing: -0.3px;
+        }
+
+        .tagline {
+            color: #18438f;
+            font-weight: 600;
+            margin-bottom: 14px;
+        }
+
+        .summary {
+            color: var(--muted);
+            line-height: 1.65;
+            font-size: 1rem;
+        }
+
+        .quick {
+            border: 1px solid #bfdbfe;
+            border-radius: var(--radius);
+            padding: 18px;
+            background: #f0f8ff;
+        }
+
+        .quick h2 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: #1d4ed8;
+        }
+
+        .quick p {
+            font-size: 0.95rem;
+            color: #335280;
+            line-height: 1.6;
+            margin-bottom: 6px;
+        }
+
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 14px;
+        }
+
+        .btn {
+            display: inline-block;
+            text-decoration: none;
+            border-radius: 10px;
+            padding: 11px 18px;
+            font-weight: 700;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 10px 20px rgba(15, 23, 42, 0.14);
+        }
+
+        .btn-primary {
+            color: #fff;
+            background: linear-gradient(135deg, var(--brand), var(--brand-2));
+        }
+
+        .btn-secondary {
+            color: #0f2a66;
+            background: #e0edff;
+            border: 1px solid #b6d2ff;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 14px;
+            padding: 24px 34px 30px;
+        }
+
+        .card {
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 16px;
+            background: #fff;
+        }
+
+        .card h3 {
+            font-size: 1rem;
+            margin-bottom: 8px;
+            color: #0f2a66;
+        }
+
+        .card p {
+            color: #475569;
+            font-size: 0.93rem;
+            line-height: 1.55;
+        }
+
+        .pill {
+            display: inline-block;
+            margin-top: 8px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            border-radius: 999px;
+            padding: 4px 10px;
+            color: #fff;
+        }
+
+        .p7 { background: var(--danger); }
+        .p6 { background: var(--warn); }
+        .p5 { background: var(--ok); }
+
+        @media (max-width: 900px) {
+            .hero {
+                grid-template-columns: 1fr;
+                padding: 22px;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+                padding: 20px 22px 24px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+
+            .shell {
+                border-radius: 12px;
+            }
+
+            .actions {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="shell">
+        <section class="hero">
+            <div>
+                <h1>Real-Time Vehicle Sensor Management System</h1>
+                <p class="tagline">Interrupt-driven RTOS simulation with deterministic priority scheduling.</p>
+                <p class="summary">
+                    This project demonstrates how brake, collision, and speed sensor interrupts are handled using an
+                    RTOS-style scheduler, event logging, and safe shared resource management. Use the dashboard to
+                    trigger sensors and inspect execution order in real time.
+                </p>
+                <div class="actions">
+                    <a class="btn btn-primary" href="/dashboard">Open Live Dashboard</a>
+                    <a class="btn btn-secondary" href="/ppt">Open PPT View</a>
+                </div>
+            </div>
+
+            <aside class="quick">
+                <h2>Project Snapshot</h2>
+                <p><strong>Architecture:</strong> Flask API + RTOS simulator + interactive UI</p>
+                <p><strong>Core focus:</strong> Interrupt handling, preemption, bounded response</p>
+                <p><strong>Execution model:</strong> Priority-based scheduling (P7 > P6 > P5)</p>
+                <p><strong>Visibility:</strong> Event logs and live runtime statistics</p>
+            </aside>
+        </section>
+
+        <section class="grid">
+            <article class="card">
+                <h3>Brake Sensor Task</h3>
+                <p>Safety-critical interrupt path with highest execution priority and immediate handling.</p>
+                <span class="pill p7">Priority 7</span>
+            </article>
+
+            <article class="card">
+                <h3>Collision Task</h3>
+                <p>High-priority reaction pipeline for collision event processing and scheduling control.</p>
+                <span class="pill p6">Priority 6</span>
+            </article>
+
+            <article class="card">
+                <h3>Speed Task</h3>
+                <p>Medium-priority monitoring flow for speed updates and regular runtime telemetry.</p>
+                <span class="pill p5">Priority 5</span>
+            </article>
+        </section>
+    </main>
+</body>
+</html>

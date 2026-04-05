@@ -4,6 +4,11 @@
 
 [[redirects]]
   from = "/"
+  to = "/templates/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/dashboard"
   to = "/templates/dashboard.html"
   status = 200
 

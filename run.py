@@ -43,6 +43,11 @@ def start_monitor():
     logger.log("[SYSTEM] Deadline Monitor started")
 
 @app.route('/')
+def index_page():
+    """Serve landing page"""
+    return render_template('index.html')
+
+@app.route('/dashboard')
 def dashboard():
     """Serve dashboard HTML"""
     return render_template('dashboard.html')
