@@ -1670,5 +1670,30 @@ header p {
         width: 100%;
         justify-content: center;
     }
+
+    /* Keep stats details on one line on phones */
+    .stats-dashboard .stat-row {
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        gap: 10px;
+    }
+
+    .stats-dashboard .stat-name {
+        flex: 1 1 auto;
+        min-width: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-size: 0.9em;
+    }
+
+    .stats-dashboard .stat-value {
+        flex: 0 0 auto;
+        min-width: 64px;
+        text-align: right !important;
+        white-space: nowrap;
+        font-size: 1em;
+    }
 }
 
