@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Real-Time Vehicle Sensor Management System</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
     <div class="container">
@@ -437,6 +437,125 @@
         let lastLogCount = 0;
         let isRefreshing = false;
         let isPaused = false;
+        const sensorMap = {
+            Brake: { intNumber: 0, priority: 7, taskName: 'BrakeTask', eventLabel: 'Brake' },
+            Collision: { intNumber: 1, priority: 6, taskName: 'CollisionTask', eventLabel: 'Collision' },
+            Speed: { intNumber: 2, priority: 5, taskName: 'SpeedTask', eventLabel: 'Speed' }
+        };
+
+        const localState = {
+            startTime: Date.now(),
+            events: [],
+            brake_events: 0,
+            collision_events: 0,
+            speed_events: 0,
+            total_events: 0,
+            total_interrupts: 0,
+            cpu_usage: 0,
+            status: '🟢 Running'
+        };
+
+        function addLocalEvent(message, offsetMicros = 0) {
+            const timestamp = (Date.now() * 1000) + offsetMicros;
+            localState.events.push(`[${timestamp}] ${message}`);
+        }
+
+        function resetLocalState() {
+            localState.startTime = Date.now();
+            localState.events = [];
+            localState.brake_events = 0;
+            localState.collision_events = 0;
+            localState.speed_events = 0;
+            localState.total_events = 0;
+            localState.total_interrupts = 0;
+            localState.cpu_usage = 0;
+            localState.status = '🟢 Running';
+        }
+
+        function buildLocalStats() {
+            const uptime = (Date.now() - localState.startTime) / 1000;
+            const interruptsPerSec = localState.total_interrupts / Math.max(uptime, 1);
+            return {
+                brake_events: localState.brake_events,
+                collision_events: localState.collision_events,
+                speed_events: localState.speed_events,
+                total_events: localState.total_events,
+                total_interrupts: localState.total_interrupts,
+                interrupts_per_sec: Number(interruptsPerSec.toFixed(2)),
+                avg_response_time: 5,
+                uptime,
+                cpu_usage: Math.min(100, Math.round(localState.total_events * 5)),
+                status: localState.status
+            };
+        }
+
+        async function apiRequest(path, options = {}) {
+            try {
+                const response = await fetch(path, options);
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+                return await response.json();
+            } catch (error) {
+                return simulateApiRequest(path, options);
+            }
+        }
+
+        function simulateApiRequest(path, options = {}) {
+            if (path === '/api/event-log') {
+                return { events: [...localState.events] };
+            }
+
+            if (path === '/api/system-stats') {
+                return buildLocalStats();
+            }
+
+            if (path === '/api/clear-log' && (options.method || 'GET').toUpperCase() === 'POST') {
+                resetLocalState();
+                return { status: 'success', message: 'Log cleared' };
+            }
+
+            if (path.startsWith('/api/trigger-sensor/')) {
+                const sensorName = path.split('/').pop();
+                const sensor = sensorMap[sensorName];
+
+                if (!sensor) {
+                    return { status: 'error', message: `Unknown sensor: ${sensorName}` };
+                }
+
+                const baseTimestamp = Date.now() * 1000;
+                addLocalEvent(`INTERRUPT: ${sensorName} (INT${sensor.intNumber}) - Priority: ${sensor.priority}`, 0);
+                addLocalEvent(`ISR_ENTRY: ${sensorName}_ISR`, 5);
+                addLocalEvent(`ISR_EXIT: ${sensorName}_ISR - Task Signaled`, 10);
+                addLocalEvent(`TASK_START: ${sensor.taskName} - Priority: ${sensor.priority}`, 15);
+                addLocalEvent(`TASK_END: ${sensor.taskName}`, 65);
+
+                localState.total_interrupts += 1;
+                localState.total_events += 1;
+
+                if (sensorName === 'Brake') {
+                    localState.brake_events += 1;
+                } else if (sensorName === 'Collision') {
+                    localState.collision_events += 1;
+                } else if (sensorName === 'Speed') {
+                    localState.speed_events += 1;
+                }
+
+                localState.cpu_usage = Math.min(100, Math.round(localState.total_events * 5));
+
+                return {
+                    status: 'success',
+                    message: `${sensorName} interrupt triggered`,
+                    result: {
+                        int_number: sensor.intNumber,
+                        priority: sensor.priority,
+                        timestamp: baseTimestamp
+                    }
+                };
+            }
+
+            return { status: 'success' };
+        }
 
         // Smooth log refresh without shaking
         async function refreshLogs() {
@@ -444,8 +563,7 @@
             isRefreshing = true;
 
             try {
-                const response = await fetch('/api/event-log');
-                const data = await response.json();
+                const data = await apiRequest('/api/event-log');
                 
                 if (data.events && data.events.length !== lastLogCount) {
                     const logContainer = document.getElementById('system-events-log');
@@ -517,12 +635,10 @@
                 // Animate car based on sensor
                 animateCarForSensor(sensorName);
                 
-                const response = await fetch(`/api/trigger-sensor/${sensorName}`, {
+                const result = await apiRequest(`/api/trigger-sensor/${sensorName}`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' }
                 });
-                
-                const result = await response.json();
                 console.log('Trigger result:', result);
                 
                 // Refresh logs and statistics after a short delay
@@ -698,8 +814,7 @@
         // Fetch and update statistics
         async function updateStatistics() {
             try {
-                const response = await fetch('/api/system-stats');
-                const stats = await response.json();
+                const stats = await apiRequest('/api/system-stats');
                 
                 // Update event statistics
                 const brakeEventsEl = document.getElementById('brake-events');
@@ -748,7 +863,7 @@
             if (logsClearBtn) {
                 logsClearBtn.addEventListener('click', async () => {
                     try {
-                        await fetch('/api/clear-log', { method: 'POST' });
+                        await apiRequest('/api/clear-log', { method: 'POST' });
                         const logContainer = document.getElementById('system-events-log');
                         if (logContainer) {
                             logContainer.innerHTML = '<div class="log-item info"><span class="log-time">00:00:00</span><span class="log-msg">Logs cleared</span></div>';
@@ -795,7 +910,7 @@
                     if (confirm('Are you sure you want to reset the dashboard? All logs and statistics will be cleared.')) {
                         try {
                             // Clear backend logs
-                            await fetch('/api/clear-log', { method: 'POST' });
+                            await apiRequest('/api/clear-log', { method: 'POST' });
                             
                             // Clear frontend display
                             const logContainer = document.getElementById('system-events-log');

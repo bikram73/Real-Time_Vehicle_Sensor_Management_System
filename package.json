@@ -5,9 +5,13 @@
   "main": "run.py",
   "scripts": {
     "start": "python run.py",
+    "build": "tsc -p tsconfig.json",
     "test": "pytest"
   },
   "dependencies": {
     "chart.js": "^3.9.1"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.5"
   }
 }
