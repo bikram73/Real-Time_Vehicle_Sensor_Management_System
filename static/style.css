@@ -92,6 +92,16 @@ header h1 {
     letter-spacing: -1px;
 }
 
+.title-emoji {
+    display: inline-block;
+    background: none;
+    -webkit-background-clip: initial;
+    background-clip: initial;
+    -webkit-text-fill-color: initial;
+    color: #4f46e5;
+    margin-right: 10px;
+}
+
 header p {
     color: #64748b;
     font-size: 1.1em;

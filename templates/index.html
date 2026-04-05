@@ -62,6 +62,16 @@
             background-clip: text;
         }
 
+        .title-emoji {
+            display: inline-block;
+            background: none;
+            -webkit-background-clip: initial;
+            background-clip: initial;
+            -webkit-text-fill-color: initial;
+            color: #4f46e5;
+            margin-right: 10px;
+        }
+
         .hero p {
             color: #475569;
             font-size: 1.05rem;
@@ -315,7 +325,7 @@
     <main class="container">
         <section class="hero">
             <div>
-                <h1>Real-Time Vehicle Sensor Management System</h1>
+                <h1><span class="title-emoji" aria-hidden="true">🚗</span> Real-Time Vehicle Sensor Management System</h1>
                 <p>
                     Interrupt-driven RTOS simulation with deterministic task behavior, priority-based scheduling,
                     and safe shared resource handling for vehicle sensor events.
